@@ -26,9 +26,13 @@ resource "aws_instance" "example" {
   }
 }
 
+resource "aws_eip" "example_eip" {
+  instance = "${aws_instance.example.id}"
+}
+
 /*
  * Outputs
  */
-output "dns" {
-  value = "${aws_instance.example.public_dns}"
+output "ip" {
+  value = "${aws_eip.example_eip.public_ip}"
 }
