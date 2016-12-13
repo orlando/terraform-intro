@@ -22,6 +22,9 @@ cp env.sample .env
 source .env
 ```
 
+Make sure when you end using the example, to teardown everything using
+`terraform destroy`
+
 ### Installing terraform
 
 If you are on OSX, you should have homebrew installed (if not installed
@@ -35,16 +38,17 @@ Once you reach this point, you should be able to run terraform commands
 without problems.
 
 In each branch you should run first `terraform plan` to see the changes,
-and then `terraform apply` to apply the changes.
+and then `terraform apply` to apply the changes. Before continue to the
+other branches, if you want to apply, run `terraform destroy` before
 
 Once you are done running the examples, you can run `terraform destroy`
 to teardown the resources you created
 
 #### master
-* Creating a basic EC2 instance
+* Creating a basic EC2 instance in a VPC
 
 #### step2
-* Adding an ELB to that instance
+* Adding an EIP to that instance
 
 #### step3
 * Exposing instance type as a variable
