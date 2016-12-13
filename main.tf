@@ -1,7 +1,6 @@
 /*
  * Variables
  */
-
 variable "instance_type" {
   default = "t2.nano"
 }
@@ -9,6 +8,34 @@ variable "instance_type" {
 /*
  * Resources
  */
+resource "aws_vpc" "default" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+}
+
+resource "aws_subnet" "public_a" {
+  vpc_id            = "${aws_vpc.default.id}"
+  cidr_block        = "10.0.0.0/24"
+  availability_zone = "us-east-1a"
+
+  tags {
+    Name = "Public-a"
+  }
+}
+
+resource "aws_internet_gateway" "default" {
+  vpc_id = "${aws_vpc.default.id}"
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.default.id}"
+  }
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -28,6 +55,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "example" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "${var.instance_type}"
+  subnet_id     = "${aws_subnet.public_a.id}"
 
   tags {
     Name = "Terraform Intro"
@@ -35,6 +63,7 @@ resource "aws_instance" "example" {
 }
 
 resource "aws_eip" "example_eip" {
+  vpc      = true
   instance = "${aws_instance.example.id}"
 }
 
