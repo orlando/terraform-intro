@@ -1,1 +1,8 @@
 .env
+
+# Terraform
+.terraform
+terraform.tfvars
+*.tfstate
+*.tfstate.*
+terraform/**/ssh
