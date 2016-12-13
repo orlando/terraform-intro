@@ -22,6 +22,9 @@ cp env.sample .env
 source .env
 ```
 
+Make sure when you end using the example, to teardown everything using
+`terraform destroy`
+
 ### Installing terraform
 
 If you are on OSX, you should have homebrew installed (if not installed
