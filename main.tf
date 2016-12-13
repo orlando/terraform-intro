@@ -1,4 +1,12 @@
 /*
+ * Variables
+ */
+
+variable "instance_type" {
+  default = "t2.nano"
+}
+
+/*
  * Resources
  */
 data "aws_ami" "ubuntu" {
@@ -19,7 +27,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "example" {
   ami           = "${data.aws_ami.ubuntu.id}"
-  instance_type = "t2.nano"
+  instance_type = "${var.instance_type}"
 
   tags {
     Name = "Terraform Intro"
