@@ -45,7 +45,7 @@ Once you are done running the examples, you can run `terraform destroy`
 to teardown the resources you created
 
 #### master
-* Creating a basic EC2 instance
+* Creating a basic EC2 instance in a VPC
 
 #### step2
 * Adding an EIP to that instance
